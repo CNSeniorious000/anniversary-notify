@@ -16,8 +16,6 @@ def send_raw(subject: str, html: str):
 
     email = resend.Emails.send(params)
 
-    print(email)
-
     return email
 
 

@@ -1,0 +1,31 @@
+<| system |>
+Now: {{ now }}
+
+| event | hours left |
+| ----- | ---------- |
+{% for event, seconds in results -%}
+| {{ event }} | {{ f"{seconds/3600:.1f}" }} |
+{% endfor -%}
+<| user |>
+Help me write an email to {{ to }}, to inform him the time left, in about 500-1000 Chinese characters.
+
+My name is {{ name }} and I like to write splendid markdown articles. You shoud act like me.
+
+Respond with the following JSON format:
+
+{
+    "subject": "...",
+    "body": "..."
+}
+
+Note that the body should use markdown syntax as many as possible.
+
+- lists
+- **bold**
+- # titles
+
+These are great features.
+
+You must use Simplified Chinese for the email content.
+
+Write a long email, not a short one.
