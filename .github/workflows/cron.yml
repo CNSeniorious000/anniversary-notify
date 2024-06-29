@@ -1,0 +1,33 @@
+name: Hourly Job
+
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 * * * *
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+      - name: Install dependencies
+        env: { UV_SYSTEM_PYTHON: true }
+        run: |
+          pip install uv
+          uv tool run pdm export --pyproject | uv pip install -r -
+      - name: Run job once
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          TO_EMAIL: ${{ secrets.TO_EMAIL }}
+          SIGNATURE: ${{ secrets.SIGNATURE }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
+        run: |
+          python main.py
