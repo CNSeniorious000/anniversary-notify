@@ -1,6 +1,8 @@
 from os import getenv
 import resend
 
+from .markdown import render
+
 from .default import get_default_signature
 
 resend.api_key = getenv("RESEND_API_KEY")
@@ -17,3 +19,7 @@ def send_raw(subject: str, html: str):
     print(email)
 
     return email
+
+
+def send_md(subject: str, content: str):
+    return send_raw(subject, render(content))

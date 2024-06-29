@@ -3,6 +3,7 @@ authors = [{ name = "Muspi Merol", email = "me@muspimerol.site" }]
 requires-python = ">=3.12"
 dependencies = [
     "resend>=2.1.0",
+    "mistune>=3.0.2",
 ]
 
 [tool.pdm]
