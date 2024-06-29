@@ -1,7 +1,9 @@
 [project]
 authors = [{ name = "Muspi Merol", email = "me@muspimerol.site" }]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "resend>=2.1.0",
+]
 
 [tool.pdm]
 distribution = false
@@ -11,3 +13,6 @@ fmt = { composite = ["ruff format", "ruff check --fix-only"] }
 
 [tool.pdm.dev-dependencies]
 dev = ["ruff~=0.5", "python-dotenv~=1.0.1"]
+
+[tool.ruff]
+line-length = 320
