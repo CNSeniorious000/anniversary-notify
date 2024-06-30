@@ -10,7 +10,8 @@ def collect():
     results: list[tuple[str, float]] = []
 
     for strategy in strategies:
-        if (seconds_left := strategy(now)) is not None and need_notify(seconds_left):
-            results.append((strategy.__doc__ or strategy.__name__, seconds_left))
+        name = strategy.__doc__ or strategy.__name__
+        if (seconds_left := strategy(now)) is not None and need_notify(name, seconds_left):
+            results.append((name, seconds_left))
 
     return results
