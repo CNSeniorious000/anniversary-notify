@@ -20,7 +20,7 @@ jobs:
         env: { UV_SYSTEM_PYTHON: true }
         run: |
           pip install uv
-          uv tool run pdm export --pyproject | uv pip install -r -
+          uv tool run pdm export --prod --pyproject | uv pip install -r -
       - name: Run job once
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}

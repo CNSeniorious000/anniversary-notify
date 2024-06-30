@@ -14,10 +14,11 @@ dependencies = [
 distribution = false
 
 [tool.pdm.scripts]
+dev = { cmd = ["watchfiles", "python main.py"] }
 fmt = { composite = ["ruff format", "ruff check --fix-only"] }
 
 [tool.pdm.dev-dependencies]
-dev = ["ruff~=0.5", "python-dotenv~=1.0.1"]
+dev = ["ruff~=0.5", "python-dotenv~=1.0.1", "watchfiles~=0.22.0"]
 
 [tool.ruff]
 line-length = 320
