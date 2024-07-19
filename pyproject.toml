@@ -22,3 +22,22 @@ dev = ["ruff~=0.5", "python-dotenv~=1.0.1", "watchfiles~=0.22.0"]
 
 [tool.ruff]
 line-length = 320
+
+[tool.ruff.lint]
+extend-select = [
+    "B",
+    "I",
+    "N",
+    "W",
+    "C4",
+    "UP",
+    "ARG",
+    "PIE",
+    "PTH",
+    "RSE",
+    "SIM",
+    "SLF",
+    "TCH",
+    "TRY",
+    "FURB",
+]

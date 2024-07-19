@@ -1,6 +1,5 @@
 from contextlib import suppress
 
-
 with suppress(ImportError):
     from dotenv import load_dotenv
 

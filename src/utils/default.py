@@ -1,9 +1,7 @@
 from functools import cache
 from pathlib import Path
-from typing import Literal
-
-
 from tomllib import loads
+from typing import Literal
 
 
 def parse_pyproject() -> dict[Literal["project"], dict[Literal["authors"], list[dict[Literal["name", "email"], str]]]]:

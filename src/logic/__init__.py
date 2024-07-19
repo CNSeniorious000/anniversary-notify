@@ -1,6 +1,6 @@
 from datetime import datetime
-from .left import need_notify
 
+from .left import need_notify
 from .strategy import strategies
 
 

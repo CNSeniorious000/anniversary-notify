@@ -1,9 +1,9 @@
 from os import getenv
+
 import resend
 
-from .markdown import render
-
 from .default import get_default_signature
+from .markdown import render
 
 resend.api_key = getenv("RESEND_API_KEY")
 
