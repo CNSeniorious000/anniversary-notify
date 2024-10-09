@@ -1,4 +1,6 @@
 [project]
+name = "anniversary-notify"
+version = "0"
 authors = [{ name = "Muspi Merol", email = "me@muspimerol.site" }]
 requires-python = ">=3.12"
 dependencies = [
@@ -17,8 +19,8 @@ distribution = false
 dev = { cmd = ["watchfiles", "python main.py"] }
 fmt = { composite = ["ruff format", "ruff check --fix-only"] }
 
-[tool.pdm.dev-dependencies]
-dev = ["ruff~=0.5", "python-dotenv~=1.0.1", "watchfiles~=0.22.0"]
+[tool.uv]
+dev-dependencies = ["ruff~=0.6.9", "python-dotenv~=1.0.1", "watchfiles~=0.24.0"]
 
 [tool.ruff]
 line-length = 320

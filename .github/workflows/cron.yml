@@ -15,12 +15,12 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.12
+          python-version: 3.13
       - name: Install dependencies
         env: { UV_SYSTEM_PYTHON: true }
         run: |
-          pip install uv
-          uv tool run pdm export --prod --pyproject | uv pip install -r -
+          pip install uv --disable-pip-version-check
+          uv export --no-hashes | uv pip install -r -
       - name: Run job once
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
