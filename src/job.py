@@ -8,6 +8,7 @@ from tenacity import retry
 
 from .logic import collect
 from .utils.llm import complete
+from .utils.log import log_messages
 from .utils.resend import send_md, to_email
 
 prompt = Node.read("src/prompt.j2")
@@ -31,7 +32,7 @@ def run():
 
     context = {"results": results, "name": "Muspi Merol", "to": to_email, "now": datetime.today()}
 
-    print(context)
+    log_messages(context)
 
     res = cast(Response, prompt.invoke(context, complete).result)
 

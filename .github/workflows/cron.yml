@@ -31,4 +31,4 @@ jobs:
           OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
           TZ: Asia/Shanghai
         run: |
-          python main.py >> $GITHUB_STEP_SUMMARY
+          python main.py

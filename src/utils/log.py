@@ -1,0 +1,29 @@
+from os import getenv
+from pathlib import Path
+
+from rich.console import Console
+from rich.markdown import Markdown
+from rich.markup import escape
+
+GITHUB_STEP_SUMMARY = getenv("GITHUB_STEP_SUMMARY")
+
+console = Console()
+
+
+def append_log(content: str):
+    if GITHUB_STEP_SUMMARY:
+        with Path(GITHUB_STEP_SUMMARY).open("a", encoding="utf-8") as f:
+            f.write(content)
+
+
+def log_messages(*messages: str, style: str | None = None):
+    console.print(*map(escape, messages), style=style)
+    append_log(" ".join(messages) + "\n")
+
+
+def print_markdown(markdown: str):
+    print("\n")
+    console.print(Markdown(markdown))
+    print()
+
+    append_log(f"\n\n{markdown}\n")

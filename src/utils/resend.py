@@ -3,6 +3,7 @@ from os import getenv
 import resend
 
 from .default import get_default_signature
+from .log import print_markdown
 from .markdown import render
 
 resend.api_key = getenv("RESEND_API_KEY")
@@ -20,4 +21,5 @@ def send_raw(subject: str, html: str):
 
 
 def send_md(subject: str, content: str):
+    print_markdown(content)
     return send_raw(subject, render(content))
