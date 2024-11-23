@@ -1,9 +1,14 @@
+from functools import wraps
 from os import getenv
 from pathlib import Path
 
+from promplate import Template
+from promplate.llm.base import Complete
 from rich.console import Console
 from rich.markdown import Markdown
 from rich.markup import escape
+
+from .markdown import render
 
 GITHUB_STEP_SUMMARY = getenv("GITHUB_STEP_SUMMARY")
 
@@ -27,3 +32,26 @@ def print_markdown(markdown: str):
     print()
 
     append_log(f"\n\n{markdown}\n")
+
+
+messages_template = Template.read(f"{__file__}/../messages.j2")
+response_template = Template.read(f"{__file__}/../response.j2")
+
+
+def _log_prompt(prompt: str):
+    append_log(f"<details>{render(messages_template.render({"prompt": prompt}))}</details>\n\n")
+
+
+def _log_response(response: str):
+    append_log(response_template.render({"response": response}))
+
+
+def log_completion(func: Complete):
+    @wraps(func)
+    def wrapper(prompt: str, **config):
+        _log_prompt(prompt)
+        response = func(prompt, **config)
+        _log_response(response)
+        return response
+
+    return wrapper

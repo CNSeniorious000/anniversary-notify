@@ -4,6 +4,8 @@ from os import getenv
 from promplate import Message
 from tenacity import retry
 
+from .log import log_completion
+
 
 @cache
 def get_generate():
@@ -12,6 +14,7 @@ def get_generate():
     return ChatGenerate().bind(model=getenv("LLM_MODEL"))
 
 
+@log_completion
 @retry
 def complete(prompt: str | list[Message]) -> str:
     result = ""

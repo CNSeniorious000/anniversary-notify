@@ -1,0 +1,9 @@
+{# from promplate.prompt.chat import ensure -#}
+
+{% for m in ensure(prompt) -%}
+### `{{ m["role"].upper() }}`
+
+{% for line in m["content"].splitlines() -%}
+> {{ line }}
+{% endfor %}
+{% endfor %}
