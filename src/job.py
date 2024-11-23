@@ -1,17 +1,16 @@
 from datetime import datetime
 from typing import cast
 
-from promplate import ChainContext, Node
+from promplate import ChainContext
 from promptools.extractors import extract_json
 from pydantic import BaseModel
 from tenacity import retry
 
 from .logic import collect
+from .templates import prompt
 from .utils.llm import complete
 from .utils.log import log_messages
 from .utils.resend import send_md, to_email
-
-prompt = Node.read("src/prompt.j2")
 
 
 class Response(BaseModel):
