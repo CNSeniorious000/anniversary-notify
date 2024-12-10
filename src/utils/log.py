@@ -21,9 +21,10 @@ def append_log(content: str):
             f.write(content)
 
 
-def log_messages(*messages: str, style: str | None = None):
-    console.print(*map(escape, messages), style=style)
-    append_log(" ".join(messages) + "\n")
+def log_messages(*items: str, style: str | None = None):
+    strings = tuple(map(str, items))
+    console.print(*map(escape, strings), style=style)
+    append_log(" ".join(strings) + "\n")
 
 
 def print_markdown(markdown: str):
