@@ -38,7 +38,7 @@ def print_markdown(markdown: str):
 def log_completion(func: Complete):
     @wraps(func)
     def wrapper(prompt: str, **config):
-        append_log(f"<details>{render(messages.render({"prompt": prompt}))}</details>\n\n")
+        append_log(f"<details>{render(messages.render({'prompt': prompt}))}</details>\n\n")
         completion = func(prompt, **config)
         append_log(response.render({"response": completion}))
         return completion
