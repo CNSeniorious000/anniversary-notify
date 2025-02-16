@@ -21,7 +21,7 @@ dev = { cmd = ["watchfiles", "python main.py"] }
 fmt = { composite = ["ruff format", "ruff check --fix-only"] }
 
 [tool.uv]
-dev-dependencies = ["ruff~=0.8.0", "python-dotenv~=1.0.1", "watchfiles~=0.24.0"]
+dev-dependencies = ["ruff~=0.8.0", "python-dotenv~=1.0.1", "watchfiles~=1.0.4"]
 
 [tool.ruff]
 line-length = 320
