@@ -33,6 +33,6 @@ def run():
 
     log_messages(context)
 
-    res = cast(Response, prompt.invoke(context, complete).result)
+    res = cast("Response", prompt.invoke(context, complete).result)
 
     send_md(res.subject, res.body)
