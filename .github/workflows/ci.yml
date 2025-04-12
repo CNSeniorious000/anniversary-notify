@@ -19,14 +19,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: astral-sh/setup-uv@v5
         with:
           python-version: 3.13
+          enable-cache: true
+          cache-dependency-glob: pyproject.toml
       - name: Install dependencies
-        env: { UV_SYSTEM_PYTHON: true }
         run: |
-          pip install uv --disable-pip-version-check
-          uv export --no-hashes | uv pip install -r -
+          uv sync
       - name: Check code quality
         run: |
           ruff format --check --diff
