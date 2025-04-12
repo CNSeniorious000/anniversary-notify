@@ -11,6 +11,7 @@ dependencies = [
     "tenacity~=9.1.2",
     "lunarcalendar~=0.0.9",
     "rich~=14.0.0",
+    "html-text~=0.7.0",
 ]
 
 [tool.pdm]
