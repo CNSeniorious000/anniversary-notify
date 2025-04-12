@@ -24,12 +24,12 @@ def parse(context: ChainContext):
     context.result = extract_json(context.result, expect=Response)
 
 
-def run():
-    results = collect()
+def run(now: datetime):
+    results = collect(now)
     if not results:
         return
 
-    context = {"results": results, "name": "Muspi Merol", "to": to_email, "now": datetime.today()}
+    context = {"results": results, "name": "Muspi Merol", "to": to_email, "now": now}
 
     log_messages(context)
 

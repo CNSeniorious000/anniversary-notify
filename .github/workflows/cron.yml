@@ -7,7 +7,20 @@ on:
     - cron: 0 * * * *
 
 jobs:
+  get-current-time:
+    runs-on: ubuntu-latest
+    outputs:
+      now: ${{ steps.set-time.outputs.now }}
+    steps:
+      - name: Get current time
+        id: set-time
+        run: |
+          CURRENT_TIME=$(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S %z')
+          echo "Current time: $CURRENT_TIME"
+          echo "now=$CURRENT_TIME" >> $GITHUB_OUTPUT
+
   run:
+    needs: get-current-time
     runs-on: ubuntu-latest
 
     steps:
@@ -31,4 +44,4 @@ jobs:
           OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
           TZ: Asia/Shanghai
         run: |
-          python main.py
+          python main.py "${{ needs.get-current-time.outputs.now }}"

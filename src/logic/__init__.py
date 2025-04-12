@@ -4,9 +4,7 @@ from .left import need_notify
 from .strategy import strategies
 
 
-def collect():
-    now = datetime.now()
-
+def collect(now: datetime):
     results: list[tuple[str, float]] = []
 
     for strategy in strategies:
