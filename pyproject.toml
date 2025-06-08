@@ -12,17 +12,18 @@ dependencies = [
     "lunarcalendar~=0.0.9",
     "rich~=14.0.0",
     "html-text~=0.7.0",
+    "hmr~=0.6.1",
 ]
 
 [tool.pdm]
 distribution = false
 
 [tool.pdm.scripts]
-dev = { cmd = ["watchfiles", "python main.py"] }
+dev = { cmd = ["hmr", "main.py"] }
 fmt = { composite = ["ruff format", "ruff check --fix-only"] }
 
 [tool.uv]
-dev-dependencies = ["ruff~=0.11.0", "python-dotenv~=1.1.0", "watchfiles~=1.0.4"]
+dev-dependencies = ["ruff~=0.11.0", "python-dotenv~=1.1.0"]
 
 [tool.ruff]
 line-length = 320
