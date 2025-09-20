@@ -12,7 +12,7 @@ dependencies = [
     "lunarcalendar~=0.0.9",
     "rich~=14.1.0",
     "html-text~=0.7.0",
-    "hmr~=0.6.1",
+    "hmr~=0.7.0",
 ]
 
 [tool.pdm]
