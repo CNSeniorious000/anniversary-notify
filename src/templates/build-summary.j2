@@ -1,0 +1,71 @@
+{#
+from html import escape
+from re import sub
+
+lines = [line for line in logs.splitlines() if line.strip()]
+headline, *rest = lines or ["No build summary available."]
+items = [line[2:] for line in rest if line.startswith("- ")]
+notes = [line for line in rest if not line.startswith("- ")]
+
+headline_time_attr = ""
+headline_date_display = ""
+headline_clock = ""
+headline_zone = ""
+month_marker = chr(26376)
+day_marker = chr(26085)
+if headline.startswith("Generated at ") and headline.endswith(")") and " (" in headline:
+    raw_headline = headline.removeprefix("Generated at ")
+    raw_timestamp, _, headline_zone = raw_headline.partition(" (")
+    headline_zone = headline_zone[:-1]
+    raw_date, _, raw_clock = raw_timestamp.partition(" ")
+    if raw_date.count("-") == 2:
+        _, month, day = raw_date.split("-")
+        headline_time_attr = f"{raw_date}T{raw_clock}"
+        headline_date_display = f"{int(month)}{month_marker}{int(day)}{day_marker}"
+        headline_clock = raw_clock[:5]
+#}
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>anniversary-notify</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@unocss/reset/tailwind.min.css">
+<style>[un-cloak]{display:none}</style>
+<script src="https://cdn.jsdelivr.net/npm/@unocss/runtime/uno.global.js"></script>
+<body un-cloak class="flex min-h-screen items-center justify-center bg-white text-zinc-800">
+<main class="max-w-2xl px-4 py-8">
+<p class="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700">Build Summary</p>
+<h1 class="m-0 text-4xl font-semibold tracking-tight text-zinc-900">Anniversary Notify</h1>
+{% if headline_time_attr -%}
+<p class="mt-3 text-sm text-zinc-500">Generated <time class="whitespace-nowrap text-sm text-zinc-600" datetime="{{ escape(headline_time_attr) }}"><span>{{ escape(headline_date_display) }}</span>{% if headline_clock -%}<span> {{ escape(headline_clock) }}</span>{% endif -%}{% if headline_zone -%}<span class="text-xs text-zinc-400"> {{ escape(headline_zone) }}</span>{% endif -%}</time></p>
+{% else -%}
+<p class="mt-3 text-sm text-zinc-500">{{ escape(headline) }}</p>
+{% endif -%}
+<table class="mt-5 w-auto border-collapse text-sm">
+<tbody>
+{% for item in items -%}
+{#
+sep = " " + chr(183) + " "
+parts = [part.strip() for part in item.split(sep, 2)]
+delta, date, name = parts if len(parts) == 3 else ("", "", item)
+date_text, clock = date.split(" ", 1) if " " in date else (date, "")
+datetime_attr = f"{date_text}T{clock}" if clock else date_text
+year, month, day = date_text.split("-") if date_text.count("-") == 2 else ("", "", "")
+date_display = f"{int(month)}{month_marker}{int(day)}{day_marker}" if year else date_text
+date_hint = year if year and clock in ("", "00:00") else " ".join(part for part in (year, clock) if part)
+name = sub(rf"^\d+{month_marker}\d+{day_marker}\s+", "", name)
+#}
+<tr class="leading-5">
+<th scope="row" class="py-1 pr-4 text-left text-xs font-semibold whitespace-nowrap text-rose-700">{{ escape(delta) }}</th>
+<td class="py-1 pr-4 whitespace-nowrap text-xs text-zinc-600"><time datetime="{{ escape(datetime_attr) }}">
+<span>{{ escape(date_display) }}</span>{% if date_hint -%}<span class="ml-1 text-[11px] text-zinc-400">{{ escape(date_hint) }}</span>{% endif -%}
+</time></td>
+<td class="py-1 whitespace-nowrap">{{ escape(name) }}</td>
+</tr>
+{% endfor -%}
+</tbody>
+</table>
+{% for note in notes -%}
+<p class="mt-3 text-sm text-zinc-500">{{ escape(note) }}</p>
+{% endfor -%}
+</main>
+</body>

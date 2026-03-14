@@ -1,4 +1,5 @@
 from datetime import datetime
+from importlib import import_module
 from typing import cast
 
 from promplate import ChainContext
@@ -25,6 +26,8 @@ def parse(context: ChainContext):
 
 
 def run(now: datetime):
+    import_module("src.strategies")
+
     results = collect(now)
     if not results:
         return
@@ -36,3 +39,4 @@ def run(now: datetime):
     res = cast("Response", prompt.invoke(context, complete).result)
 
     send_md(res.subject, res.body)
+    return res

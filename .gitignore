@@ -17,3 +17,4 @@ __pypackages__/
 node_modules
 dist
 *lock*
+.vercel

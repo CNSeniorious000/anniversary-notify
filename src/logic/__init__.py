@@ -9,7 +9,7 @@ def collect(now: datetime):
 
     for strategy in strategies:
         name = strategy.__doc__ or strategy.__name__
-        if (seconds_left := strategy(now)) is not None and need_notify(name, seconds_left):
+        if (seconds_left := strategy(now)) is not None and need_notify(name, seconds_left, now):
             results.append((name, seconds_left))
 
     return results
