@@ -22,8 +22,8 @@ distribution = false
 dev = { cmd = ["hmr", "main.py"] }
 fmt = { composite = ["ruff format", "ruff check --fix-only"] }
 
-[tool.uv]
-dev-dependencies = ["ruff~=0.12.0", "python-dotenv~=1.1.0"]
+[dependency-groups]
+dev = ["ruff~=0.12.0", "python-dotenv~=1.1.0"]
 
 [tool.ruff]
 line-length = 320
