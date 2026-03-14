@@ -18,3 +18,5 @@ node_modules
 dist
 *lock*
 .vercel
+
+.vercel
